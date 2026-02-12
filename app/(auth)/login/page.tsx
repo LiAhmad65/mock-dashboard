@@ -2,8 +2,11 @@
 
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 import AppButton from "@/app/components/button/AppButton";
 import AppInput from "@/app/components/input/AppInput";
+import { login } from "@/store/actions/authActions";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -15,9 +18,12 @@ const validationSchema = Yup.object({
 });
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const handleSubmit = (values: { email: string; password: string }) => {
-    console.log("Form submitted:", values);
-    // Handle login logic here
+    dispatch(login(values.email) as any);
+    console.log("User logged in:", values.email);
   };
 
   return (
