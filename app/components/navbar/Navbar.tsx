@@ -148,7 +148,7 @@ export default function Navbar() {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center space-x-2 sm:space-x-3 px-3 py-2 rounded-md hover:bg-gray-50 transition-colors"
+              className="flex items-center cursor-pointer space-x-2 sm:space-x-3 px-3 py-2 rounded-md hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary-600 text-white text-sm sm:text-base font-semibold">
@@ -177,11 +177,11 @@ export default function Navbar() {
 
             {/* Dropdown menu */}
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-opacity-5 focus:outline-none">
                 <div className="py-1">
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-sm text-error hover:bg-red-50 transition-colors"
+                    className="block w-full cursor-pointer text-left px-4 py-2 text-sm text-error hover:bg-gray-50 transition-colors"
                   >
                     Logout
                   </button>

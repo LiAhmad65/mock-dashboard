@@ -5,7 +5,7 @@ interface TableFooterProps {
   totalPages: number;
   onPageChange: (page: number) => void;
   totalItems: number;
-  itemsPerPage: number;
+  itemsOnCurrentPage: number;
 }
 
 export default function TableFooter({
@@ -13,10 +13,13 @@ export default function TableFooter({
   totalPages,
   onPageChange,
   totalItems,
-  itemsPerPage,
+  itemsOnCurrentPage,
 }: TableFooterProps) {
-  const startItem = (currentPage - 1) * itemsPerPage + 1;
-  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+  // Calculate start and end items for current page
+  // API typically returns 20 items per page, but last page may have fewer
+  const pageSize = totalPages > 0 ? Math.ceil(totalItems / totalPages) : 20;
+  const startItem = totalItems > 0 ? (currentPage - 1) * pageSize + 1 : 0;
+  const endItem = startItem + itemsOnCurrentPage - 1;
 
   const handlePrevious = () => {
     if (currentPage > 1) {
@@ -30,12 +33,21 @@ export default function TableFooter({
     }
   };
 
+  const getResultsText = () => {
+    if (totalItems === 0) {
+      return "No results";
+    }
+    if (startItem === endItem) {
+      return `Showing ${startItem} of ${totalItems} result${totalItems === 1 ? "" : "s"}`;
+    }
+    return `Showing ${startItem} to ${endItem} of ${totalItems} result${totalItems === 1 ? "" : "s"}`;
+  };
+
   return (
     <div className="bg-gray-50 px-4 py-3 border-t border-gray-200 sm:px-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="text-sm text-gray-700">
-          Showing <span className="font-medium">{startItem}</span> to{" "}
-          <span className="font-medium">{endItem}</span>
+          {getResultsText()}
         </div>
         <div className="flex items-center gap-2">
           <AppButton
