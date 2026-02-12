@@ -24,11 +24,12 @@ export default function Login() {
   const handleSubmit = (values: { email: string; password: string }) => {
     dispatch(login(values.email) as any);
     console.log("User logged in:", values.email);
+    router.push("/home");
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-8 font-sans sm:px-6 lg:px-8">
-      <main className="w-full max-w-md">
+        <main className="w-full max-w-md">
         <div className="rounded-lg bg-white p-6 shadow-lg sm:p-8 md:p-10">
           <h1 className="mb-6 text-2xl font-semibold text-gray-900 sm:text-3xl">
             Login
